@@ -62,8 +62,8 @@ def lambda_handler(event, context):
     elif event.get('info').get('fieldName') == 'get_all_consumers':
         return query.get_all_consumers()
     
-    elif event.get('info').get('fieldName') == 'get_consumer_order_by_id':
-        return query.get_consumer_order_by_id(event.get('arguments').get('order_id'))
+    elif event.get('info').get('fieldName') == 'get_consumers_by_order_id':
+        return query.get_consumers_by_order_id(event.get('arguments').get('order_id'))
     
     elif event.get('info').get('fieldName') == 'get_all_consumer_orders':
         return query.get_all_consumer_orders()

@@ -342,7 +342,7 @@ class Query:
             Transaction["transaction_date"] = transactionDao.transaction_date
             return Transaction
 
-# ---------------------------------------consumerTransaction-------------------------------------------------------------------------------
+# ---------------------------------------consumerOrder-------------------------------------------------------------------------------
     
     def get_orders_by_consumer_id(self, consumer_id: int) -> List[ConsumerOrder]:
         # Retrieve orders by consumer ID
@@ -372,7 +372,20 @@ class Query:
             Consumer["email"] = consumer.email
             Consumers.append(Consumer)
         return Consumers
-
+    def get_all_consumer_orders() -> List[ConsumerOrder]:
+    # Retrieve all consumer orders
+        consumer_orders = ConsumerOrder.query.all()
+        ConsumerOrders = []
+        for consumer_order in consumer_orders:
+            ConsumerOrder = {}
+            ConsumerOrder["order_id"] = consumer_order.order_id
+            ConsumerOrder["consumer_id"] = consumer_order.consumer_id
+            ConsumerOrder["product_id"] = consumer_order.product_id
+            ConsumerOrder["quantity"] = consumer_order.quantity
+            ConsumerOrder["order_date"] = consumer_order.order_date
+            ConsumerOrders.append(ConsumerOrder)
+        return ConsumerOrders
+# ===========================================================================consumerTransaction=====================================================================================================================================
     def get_consumer_transaction_by_id(self, transaction_id: int) -> ConsumerTransaction:
         ConsumerTransactionDao = ConsumerTransactionDAO.get_consumer_by_transaction_id(transaction_id)
         ConsumerTransaction = {}
