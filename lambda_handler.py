@@ -7,90 +7,90 @@ def lambda_handler(event, context):
     
     if event.get('info').get('fieldName') == 'get_supplier_by_id':
         print(event)
-        supplier = Query().get_supplier_by_id(event.get('arguments').get('supplier_id'))
+        supplier = Query.get_supplier_by_id(event.get('arguments').get('supplier_id'))
         return supplier
     
     elif event.get('info').get('fieldName') == 'get_all_suppliers':
         print(event)
-        suppliers = Query().get_all_suppliers()
+        suppliers = Query.get_all_suppliers()
         return suppliers
     elif event.get('info').get('fieldName') == 'get_product_by_id':
-        return Query().get_product_by_id(event.get('arguments').get('product_id'))
+        return Query.get_product_by_id(event.get('arguments').get('product_id'))
     
     elif event.get('info').get('fieldName') == 'get_all_products':
-        return Query().get_all_products()
+        return Query.get_all_products()
     
     elif event.get('info').get('fieldName') == 'get_stock_by_id':
-        return Query().get_stock_by_id(event.get('arguments').get('stock_id'))
+        return Query.get_stock_by_id(event.get('arguments').get('stock_id'))
     
     elif event.get('info').get('fieldName') == 'get_all_stocks':
-        return Query().get_all_stocks()
+        return Query.get_all_stocks()
     
     elif event.get('info').get('fieldName') == 'get_supplier_order_by_id':
-        return Query().get_supplier_order_by_id(event.get('arguments').get('order_id'))
+        return Query.get_supplier_order_by_id(event.get('arguments').get('order_id'))
     
     elif event.get('info').get('fieldName') == 'get_all_supplier_orders':
-        return Query().get_all_supplier_orders()
+        return Query.get_all_supplier_orders()
     
     elif event.get('info').get('fieldName') == 'get_orders_by_supplier_id':
-        return Query().get_orders_by_supplier_id(event.get('arguments').get('supplier_id'))
+        return Query.get_orders_by_supplier_id(event.get('arguments').get('supplier_id'))
     
     elif event.get('info').get('fieldName') == 'get_suppliers_by_order_id':
-        return Query().get_suppliers_by_order_id(event.get('arguments').get('order_id'))
+        return Query.get_suppliers_by_order_id(event.get('arguments').get('order_id'))
     
     elif event.get('info').get('fieldName') == 'get_consumer_by_id':
-        return Query().get_consumer_by_id(event.get('arguments').get('consumer_id'))
+        return Query.get_consumer_by_id(event.get('arguments').get('consumer_id'))
     
     elif event.get('info').get('fieldName') == 'get_all_consumers':
-        return Query().get_all_consumers()
+        return Query.get_all_consumers()
     
     elif event.get('info').get('fieldName') == 'get_consumer_order_by_id':
-        return Query().get_consumer_order_by_id(event.get('arguments').get('order_id'))
+        return Query.get_consumer_order_by_id(event.get('arguments').get('order_id'))
     
     elif event.get('info').get('fieldName') == 'get_all_consumer_orders':
-        return Query().get_all_consumer_orders()
+        return Query.get_all_consumer_orders()
     
     elif event.get('info').get('fieldName') == 'get_orders_by_consumer_id':
-        return Query().get_orders_by_consumer_id(event.get('arguments').get('consumer_id'))
+        return Query.get_orders_by_consumer_id(event.get('arguments').get('consumer_id'))
     
     elif event.get('info').get('fieldName') == 'get_consumers_by_order_id':
-        return Query().get_consumers_by_order_id(event.get('arguments').get('order_id'))
+        return Query.get_consumers_by_order_id(event.get('arguments').get('order_id'))
     
     elif event.get('info').get('fieldName') == 'get_supplier_transaction_by_id':
-        return Query().get_supplier_transaction_by_id(event.get('arguments').get('transaction_id'))
+        return Query.get_supplier_transaction_by_id(event.get('arguments').get('transaction_id'))
     
     elif event.get('info').get('fieldName') == 'get_all_supplier_transactions':
-        return Query().get_all_supplier_transactions()
+        return Query.get_all_supplier_transactions()
     
     elif event.get('info').get('fieldName') == 'get_transactions_by_supplier_id':
-        return Query().get_transactions_by_supplier_id(event.get('arguments').get('supplier_id'))
+        return Query.get_transactions_by_supplier_id(event.get('arguments').get('supplier_id'))
     
     elif event.get('info').get('fieldName') == 'get_supplier_by_transaction_id':
-        return Query().get_supplier_by_transaction_id(event.get('arguments').get('transaction_id'))
+        return Query.get_supplier_by_transaction_id(event.get('arguments').get('transaction_id'))
     
     elif event.get('info').get('fieldName') == 'get_Supplierorder_by_transaction_id':
-        return Query().get_Supplierorder_by_transaction_id(event.get('arguments').get('transaction_id'))
+        return Query.get_Supplierorder_by_transaction_id(event.get('arguments').get('transaction_id'))
     
     elif event.get('info').get('fieldName') == 'get_Suppliertransaction_by_order_id':
-        return Query().get_Suppliertransaction_by_order_id(event.get('arguments').get('order_id'))
+        return Query.get_Suppliertransaction_by_order_id(event.get('arguments').get('order_id'))
     
     elif event.get('info').get('fieldName') == 'get_consumer_transaction_by_id':
-        return Query().get_consumer_transaction_by_id(event.get('arguments').get('transaction_id'))
+        return Query.get_consumer_transaction_by_id(event.get('arguments').get('transaction_id'))
     
     elif event.get('info').get('fieldName') == 'get_all_consumer_transactions':
-        return Query().get_all_consumer_transactions()
+        return Query.get_all_consumer_transactions()
     
     elif event.get('info').get('fieldName') == 'get_transactions_by_consumer_id':
-        return Query().get_transactions_by_consumer_id(event.get('arguments').get('consumer_id'))
+        return Query.get_transactions_by_consumer_id(event.get('arguments').get('consumer_id'))
     
     elif event.get('info').get('fieldName') == 'get_consumer_by_transaction_id':
-        return Query().get_consumer_by_transaction_id(event.get('arguments').get('transaction_id'))
+        return Query.get_consumer_by_transaction_id(event.get('arguments').get('transaction_id'))
     
     elif event.get('info').get('fieldName') == 'get_Consumerorder_by_transaction_id':
-        return Query().get_Consumerorder_by_transaction_id(event.get('arguments').get('transaction_id'))
+        return Query.get_Consumerorder_by_transaction_id(event.get('arguments').get('transaction_id'))
     
     elif event.get('info').get('fieldName') == 'get_Consumertransaction_by_order_id':
-        return Query().get_Consumertransaction_by_order_id(event.get('arguments').get('order_id'))
+        return Query.get_Consumertransaction_by_order_id(event.get('arguments').get('order_id'))
     
     elif event.get('info').get('fieldName') == 'create_supplier':
         print(event)
