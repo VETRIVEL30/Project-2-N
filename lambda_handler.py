@@ -8,12 +8,14 @@ def lambda_handler(event, context):
     if event.get('info').get('fieldName') == 'get_supplier_by_id':
         print(event)
         supplier = Query.get_supplier_by_id(event.get('arguments').get('supplier_id'))
-        return supplier
+        return json.loads(json.dumps(supplier, default=str))
+
     
     elif event.get('info').get('fieldName') == 'get_all_suppliers':
         print(event)
         suppliers = Query.get_all_suppliers()
-        return suppliers
+        return json.loads(json.dumps(suppliers, default=str))
+
     elif event.get('info').get('fieldName') == 'get_product_by_id':
         return Query.get_product_by_id(event.get('arguments').get('product_id'))
     
