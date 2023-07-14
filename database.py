@@ -9,7 +9,7 @@ from sqlalchemy.ext.declarative import declarative_base
 
 # Configure the PostgreSQL database connection
 
-engine = create_engine("postgresql:")
+engine = create_engine("postgresql://postgres:Password0#@database1.cuetvdodk2bh.us-east-1.rds.amazonaws.com:5432/ecom")
 
 
 
