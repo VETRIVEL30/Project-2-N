@@ -169,7 +169,7 @@ class Query:
         SupplierOrder["product_id"] = SupplierOrderDao.product_id
         SupplierOrder["stock_id"] = SupplierOrderDao.stock_id
         SupplierOrder["quantity"] = SupplierOrderDao.quantity
-        SupplierOrder["order_date"] = SupplierOrderDao.order_date
+        SupplierOrder["order_date"] = SupplierOrderDao.order_date.isoformat()
         return SupplierOrder
 
 
@@ -183,7 +183,7 @@ class Query:
             SupplierOrder["product_id"] = supplier_order.product_id
             SupplierOrder["stock_id"] = supplier_order.stock_id
             SupplierOrder["quantity"] = supplier_order.quantity
-            SupplierOrder["order_date"] = supplier_order.order_date
+            SupplierOrder["order_date"] = supplier_order.order_date.isoformat()
             SupplierOrders.append(SupplierOrder)
         return SupplierOrders
 
@@ -198,7 +198,7 @@ class Query:
             SupplierOrder["product_id"] = supplier_order.product_id
             SupplierOrder["stock_id"] = supplier_order.stock_id
             SupplierOrder["quantity"] = supplier_order.quantity
-            SupplierOrder["order_date"] = supplier_order.order_date
+            SupplierOrder["order_date.isoformat()"] = supplier_order.order_date
             SupplierOrders.append(SupplierOrder)
         return SupplierOrders
 
@@ -272,7 +272,7 @@ class Query:
         SupplierTransaction["transaction_id"] = SupplierTransactionDao.transaction_id
         SupplierTransaction["supplier_id"] = SupplierTransactionDao.supplier_id
         SupplierTransaction["order_id"] = SupplierTransactionDao.order_id
-        SupplierTransaction["transaction_date"] = SupplierTransactionDao.transaction_date
+        SupplierTransaction["transaction_date"] = SupplierTransactionDao.transaction_date.isoformat()
         return SupplierTransaction
 
 
@@ -284,7 +284,7 @@ class Query:
             SupplierTransaction["transaction_id"] = supplier_transaction.transaction_id
             SupplierTransaction["supplier_id"] = supplier_transaction.supplier_id
             SupplierTransaction["order_id"] = supplier_transaction.order_id
-            SupplierTransaction["transaction_date"] = supplier_transaction.transaction_date
+            SupplierTransaction["transaction_date"] = supplier_transaction.transaction_date.isoformat()
             SupplierTransactions.append(SupplierTransaction)
         return SupplierTransactions
 
@@ -297,7 +297,7 @@ class Query:
             SupplierTransaction["transaction_id"] = supplier_transaction.transaction_id
             SupplierTransaction["supplier_id"] = supplier_transaction.supplier_id
             SupplierTransaction["order_id"] = supplier_transaction.order_id
-            SupplierTransaction["transaction_date"] = supplier_transaction.transaction_date
+            SupplierTransaction["transaction_date"] = supplier_transaction.transaction_date.isoformat()
             SupplierTransactions.append(SupplierTransaction)
         return SupplierTransactions
 
@@ -326,7 +326,7 @@ class Query:
             Order["product_id"] = orderDao.product_id
             Order["stock_id"] = orderDao.stock_id
             Order["quantity"] = orderDao.quantity
-            Order["order_date"] = orderDao.order_date
+            Order["order_date"] = orderDao.order_date.isoformat()
             return Order
 
 
@@ -339,7 +339,7 @@ class Query:
             Transaction["transaction_id"] = transactionDao.transaction_id
             Transaction["supplier_id"] = transactionDao.supplier_id
             Transaction["order_id"] = transactionDao.order_id
-            Transaction["transaction_date"] = transactionDao.transaction_date
+            Transaction["transaction_date"] = transactionDao.transaction_date.isoformat()
             return Transaction
 
 # ---------------------------------------consumerOrder-------------------------------------------------------------------------------
@@ -354,7 +354,7 @@ class Query:
             ConsumerOrder["consumer_id"] = consumer_order.consumer_id
             ConsumerOrder["product_id"] = consumer_order.product_id
             ConsumerOrder["quantity"] = consumer_order.quantity
-            ConsumerOrder["order_date"] = consumer_order.order_date
+            ConsumerOrder["order_date"] = consumer_order.order_date.isoformat()
             ConsumerOrders.append(ConsumerOrder)
         return ConsumerOrders
 
@@ -382,7 +382,7 @@ class Query:
             ConsumerOrder["consumer_id"] = consumer_order.consumer_id
             ConsumerOrder["product_id"] = consumer_order.product_id
             ConsumerOrder["quantity"] = consumer_order.quantity
-            ConsumerOrder["order_date"] = consumer_order.order_date
+            ConsumerOrder["order_date"] = consumer_order.order_date.isoformat()
             ConsumerOrders.append(ConsumerOrder)
         return ConsumerOrders
 # ===========================================================================consumerTransaction=====================================================================================================================================
@@ -392,7 +392,7 @@ class Query:
         ConsumerTransaction["transaction_id"] = ConsumerTransactionDao.transaction_id
         ConsumerTransaction["consumer_id"] = ConsumerTransactionDao.consumer_id
         ConsumerTransaction["order_id"] = ConsumerTransactionDao.order_id
-        ConsumerTransaction["transaction_date"] = ConsumerTransactionDao.transaction_date
+        ConsumerTransaction["transaction_date"] = ConsumerTransactionDao.transaction_date.isoformat()
         return ConsumerTransaction
 
 
@@ -404,7 +404,7 @@ class Query:
             ConsumerTransaction["transaction_id"] = consumer_transaction.transaction_id
             ConsumerTransaction["consumer_id"] = consumer_transaction.consumer_id
             ConsumerTransaction["order_id"] = consumer_transaction.order_id
-            ConsumerTransaction["transaction_date"] = consumer_transaction.transaction_date
+            ConsumerTransaction["transaction_date"] = consumer_transaction.transaction_date.isoformat()
             ConsumerTransactions.append(ConsumerTransaction)
         return ConsumerTransactions
 
@@ -418,7 +418,7 @@ class Query:
             Transaction["transaction_id"] = transaction.transaction_id
             Transaction["consumer_id"] = transaction.consumer_id
             Transaction["order_id"] = transaction.order_id
-            Transaction["transaction_date"] = transaction.transaction_date
+            Transaction["transaction_date"] = transaction.transaction_date.isoformat()
             Transactions.append(Transaction)
         return Transactions
 
@@ -449,7 +449,7 @@ class Query:
             Order["consumer_id"] = orderDao.consumer_id
             Order["product_id"] = orderDao.product_id
             Order["quantity"] = orderDao.quantity
-            Order["order_date"] = orderDao.order_date
+            Order["order_date"] = orderDao.order_date.isoformat()
             return Order
 
 
@@ -463,7 +463,7 @@ class Query:
             Transaction["transaction_id"] = transactionDao.transaction_id
             Transaction["consumer_id"] = transactionDao.consumer_id
             Transaction["order_id"] = transactionDao.order_id
-            Transaction["transaction_date"] = transactionDao.transaction_date
+            Transaction["transaction_date"] = transactionDao.transaction_date.isoformat()
             return Transaction
 
 class Mutation:
@@ -549,7 +549,7 @@ class Mutation:
         SupplierOrder["product_id"] = SupplierOrderDao.product_id
         SupplierOrder["stock_id"] = SupplierOrderDao.stock_id
         SupplierOrder["quantity"] = SupplierOrderDao.quantity
-        SupplierOrder["order_date"] = SupplierOrderDao.order_date
+        SupplierOrder["order_date"] = SupplierOrderDao.order_date.isoformat()
         return SupplierOrder
 
 
