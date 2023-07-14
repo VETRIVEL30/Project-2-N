@@ -136,12 +136,12 @@ def lambda_handler(event, context):
         dsupplier =  Mutation.delete_supplier(event.get('arguments').get('supplier_id'))
         return dsupplier
     
-#     elif event.get('info').get('fieldName') == 'create_product':
-#         return Mutation.create_product(
-#             event.get('arguments').get('name'),
-#             event.get('arguments').get('description'),
-#             event.get('arguments').get('price')
-#         )
+    elif event.get('info').get('fieldName') == 'create_product':
+        return Mutation.create_product(
+            event.get('arguments').get('name'),
+            event.get('arguments').get('description'),
+            event.get('arguments').get('price')
+        )
     
 #     elif event.get('info').get('fieldName') == 'update_product':
 #         return Mutation.update_product(
