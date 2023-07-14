@@ -95,6 +95,7 @@ class Query:
         Supplier["name"] = SupplierDao.name
         Supplier["address"] = SupplierDao.address
         Supplier["contact"] = SupplierDao.contact
+        Supplier["email"] = SupplierDao.email
         return Supplier
 
 
@@ -107,6 +108,7 @@ class Query:
             Supplier["name"] = supplier.name
             Supplier["address"] = supplier.address
             Supplier["contact"] = supplier.contact
+            Supplier["email"] = supplier.email
             Suppliers.append(Supplier)
         return Suppliers
 
