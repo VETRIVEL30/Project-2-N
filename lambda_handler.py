@@ -143,121 +143,121 @@ def lambda_handler(event, context):
             event.get('arguments').get('price')
         )
     
-#     elif event.get('info').get('fieldName') == 'update_product':
-#         return Mutation.update_product(
-#             event.get('arguments').get('product_id'),
-#             event.get('arguments').get('name'),
-#             event.get('arguments').get('description'),
-#             event.get('arguments').get('price')
-#         )
+    elif event.get('info').get('fieldName') == 'update_product':
+        return Mutation.update_product(
+            event.get('arguments').get('product_id'),
+            event.get('arguments').get('name'),
+            event.get('arguments').get('description'),
+            event.get('arguments').get('price')
+        )
     
-#     elif event.get('info').get('fieldName') == 'delete_product':
-#         return Mutation.delete_product(event.get('arguments').get('product_id'))
+    elif event.get('info').get('fieldName') == 'delete_product':
+        return Mutation.delete_product(event.get('arguments').get('product_id'))
     
-#     elif event.get('info').get('fieldName') == 'create_stock':
-#         return Mutation().create_stock(
-#             event.get('arguments').get('product_id'),
-#             event.get('arguments').get('quantity'),
-#             event.get('arguments').get('location'),
-#             event.get('arguments').get('threshold')
-#         )
+    elif event.get('info').get('fieldName') == 'create_stock':
+        return Mutation().create_stock(
+            event.get('arguments').get('product_id'),
+            event.get('arguments').get('quantity'),
+            event.get('arguments').get('location'),
+            event.get('arguments').get('threshold')
+        )
     
-#     elif event.get('info').get('fieldName') == 'update_stock':
-#         return Mutation().update_stock(
-#             event.get('arguments').get('stock_id'),
-#             event.get('arguments').get('quantity'),
-#             event.get('arguments').get('location'),
-#             event.get('arguments').get('threshold')
-#         )
+    elif event.get('info').get('fieldName') == 'update_stock':
+        return Mutation().update_stock(
+            event.get('arguments').get('stock_id'),
+            event.get('arguments').get('quantity'),
+            event.get('arguments').get('location'),
+            event.get('arguments').get('threshold')
+        )
     
-#     elif event.get('info').get('fieldName') == 'delete_stock':
-#         return Mutation().delete_stock(event.get('arguments').get('stock_id'))
+    elif event.get('info').get('fieldName') == 'delete_stock':
+        return Mutation().delete_stock(event.get('arguments').get('stock_id'))
     
-#     elif event.get('info').get('fieldName') == 'create_supplier_order':
-#         return Mutation().create_supplier_order(
-#             event.get('arguments').get('supplier_id'),
-#             event.get('arguments').get('product_id'),
-#             event.get('arguments').get('stock_id'),
-#             event.get('arguments').get('quantity'),
-#             event.get('arguments').get('order_date')
-#         )
+    elif event.get('info').get('fieldName') == 'create_supplier_order':
+        return Mutation().create_supplier_order(
+            event.get('arguments').get('supplier_id'),
+            event.get('arguments').get('product_id'),
+            event.get('arguments').get('stock_id'),
+            event.get('arguments').get('quantity'),
+            event.get('arguments').get('order_date')
+        )
     
-#     elif event.get('info').get('fieldName') == 'update_supplier_order':
-#         return Mutation().update_supplier_order(
-#             event.get('arguments').get('order_id'),
-#             event.get('arguments').get('quantity'),
-#             event.get('arguments').get('order_date')
-#         )
+    elif event.get('info').get('fieldName') == 'update_supplier_order':
+        return Mutation().update_supplier_order(
+            event.get('arguments').get('order_id'),
+            event.get('arguments').get('quantity'),
+            event.get('arguments').get('order_date')
+        )
     
-#     elif event.get('info').get('fieldName') == 'delete_supplier_order':
-#         return Mutation().delete_supplier_order(event.get('arguments').get('order_id'))
+    elif event.get('info').get('fieldName') == 'delete_supplier_order':
+        return Mutation().delete_supplier_order(event.get('arguments').get('order_id'))
     
-#     elif event.get('info').get('fieldName') == 'create_consumer':
-#         return Mutation().create_consumer(
-#             event.get('arguments').get('name'),
-#             event.get('arguments').get('address'),
-#             event.get('arguments').get('contact'),
-#             event.get('arguments').get('email')
-#         )
+    elif event.get('info').get('fieldName') == 'create_consumer':
+        return Mutation().create_consumer(
+            event.get('arguments').get('name'),
+            event.get('arguments').get('address'),
+            event.get('arguments').get('contact'),
+            event.get('arguments').get('email')
+        )
     
-#     elif event.get('info').get('fieldName') == 'update_consumer':
-#         return Mutation().update_consumer(
-#             event.get('arguments').get('consumer_id'),
-#             event.get('arguments').get('name'),
-#             event.get('arguments').get('address'),
-#             event.get('arguments').get('contact'),
-#             event.get('arguments').get('email')
-#         )
+    elif event.get('info').get('fieldName') == 'update_consumer':
+        return Mutation().update_consumer(
+            event.get('arguments').get('consumer_id'),
+            event.get('arguments').get('name'),
+            event.get('arguments').get('address'),
+            event.get('arguments').get('contact'),
+            event.get('arguments').get('email')
+        )
     
-#     elif event.get('info').get('fieldName') == 'delete_consumer':
-#         return Mutation().delete_consumer(event.get('arguments').get('consumer_id'))
+    elif event.get('info').get('fieldName') == 'delete_consumer':
+        return Mutation().delete_consumer(event.get('arguments').get('consumer_id'))
     
-#     elif event.get('info').get('fieldName') == 'create_consumer_order':
-#         return Mutation().create_consumer_order(
-#             event.get('arguments').get('consumer_id'),
-#             event.get('arguments').get('product_id'),
-#             event.get('arguments').get('quantity'),
-#             event.get('arguments').get('order_date')
-#         )
+    elif event.get('info').get('fieldName') == 'create_consumer_order':
+        return Mutation().create_consumer_order(
+            event.get('arguments').get('consumer_id'),
+            event.get('arguments').get('product_id'),
+            event.get('arguments').get('quantity'),
+            event.get('arguments').get('order_date')
+        )
     
-#     elif event.get('info').get('fieldName') == 'update_consumer_order':
-#         return Mutation().update_consumer_order(
-#             event.get('arguments').get('order_id'),
-#             event.get('arguments').get('quantity'),
-#             event.get('arguments').get('order_date')
-#         )
+    elif event.get('info').get('fieldName') == 'update_consumer_order':
+        return Mutation().update_consumer_order(
+            event.get('arguments').get('order_id'),
+            event.get('arguments').get('quantity'),
+            event.get('arguments').get('order_date')
+        )
     
-#     elif event.get('info').get('fieldName') == 'delete_consumer_order':
-#         return Mutation().delete_consumer_order(event.get('arguments').get('order_id'))
+    elif event.get('info').get('fieldName') == 'delete_consumer_order':
+        return Mutation().delete_consumer_order(event.get('arguments').get('order_id'))
     
-#     elif event.get('info').get('fieldName') == 'create_supplier_transaction':
-#         return Mutation().create_supplier_transaction(
-#             event.get('arguments').get('supplier_id'),
-#             event.get('arguments').get('order_id'),
-#             event.get('arguments').get('transaction_date')
-#         )
+    elif event.get('info').get('fieldName') == 'create_supplier_transaction':
+        return Mutation().create_supplier_transaction(
+            event.get('arguments').get('supplier_id'),
+            event.get('arguments').get('order_id'),
+            event.get('arguments').get('transaction_date')
+        )
     
-#     elif event.get('info').get('fieldName') == 'update_supplier_transaction':
-#         return Mutation().update_supplier_transaction(
-#             event.get('arguments').get('transaction_id'),
-#             event.get('arguments').get('transaction_date')
-#         )
+    elif event.get('info').get('fieldName') == 'update_supplier_transaction':
+        return Mutation().update_supplier_transaction(
+            event.get('arguments').get('transaction_id'),
+            event.get('arguments').get('transaction_date')
+        )
     
-#     elif event.get('info').get('fieldName') == 'delete_supplier_transaction':
-#         return Mutation().delete_supplier_transaction(event.get('arguments').get('transaction_id'))
+    elif event.get('info').get('fieldName') == 'delete_supplier_transaction':
+        return Mutation().delete_supplier_transaction(event.get('arguments').get('transaction_id'))
     
-#     elif event.get('info').get('fieldName') == 'create_consumer_transaction':
-#         return Mutation().create_consumer_transaction(
-#             event.get('arguments').get('consumer_id'),
-#             event.get('arguments').get('order_id'),
-#             event.get('arguments').get('transaction_date')
-#         )
+    elif event.get('info').get('fieldName') == 'create_consumer_transaction':
+        return Mutation().create_consumer_transaction(
+            event.get('arguments').get('consumer_id'),
+            event.get('arguments').get('order_id'),
+            event.get('arguments').get('transaction_date')
+        )
     
-#     elif event.get('info').get('fieldName') == 'update_consumer_transaction':
-#         return Mutation().update_consumer_transaction(
-#             event.get('arguments').get('transaction_id'),
-#             event.get('arguments').get('transaction_date')
-#         )
+    elif event.get('info').get('fieldName') == 'update_consumer_transaction':
+        return Mutation().update_consumer_transaction(
+            event.get('arguments').get('transaction_id'),
+            event.get('arguments').get('transaction_date')
+        )
     
-#     elif event.get('info').get('fieldName') == 'delete_consumer_transaction':
-#         return Mutation().delete_consumer_transaction(event.get('arguments').get('transaction_id'))
+    elif event.get('info').get('fieldName') == 'delete_consumer_transaction':
+        return Mutation().delete_consumer_transaction(event.get('arguments').get('transaction_id'))
