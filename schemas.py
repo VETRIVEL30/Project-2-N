@@ -401,20 +401,30 @@ class Query:
             return Transaction
 
 # ---------------------------------------consumerOrder-------------------------------------------------------------------------------
-    
+        
     def get_orders_by_consumer_id(consumer_id: int) -> List[ConsumerOrder]:
-            consumer_orders = ConsumerOrderDAO.get_orders_by_consumer_id(consumer_id)
-            ConsumerOrders = []
-            for consumer_order in consumer_orders:
-                ConsumerOrder = {}
-                ConsumerOrder["order_id"] = consumer_order.order_id
-                ConsumerOrder["consumer_id"] = consumer_order.consumer_id
-                ConsumerOrder["product_id"] = consumer_order.product_id
-                ConsumerOrder["quantity"] = consumer_order.quantity
-                ConsumerOrder["order_date"] = consumer_order.order_date.isoformat()
-                ConsumerOrder["total_price"] = consumer_order.quantity * consumer_order.product.price
-                ConsumerOrders.append(ConsumerOrder)
-            return ConsumerOrders
+        consumer_orders = ConsumerOrderDAO.get_orders_by_consumer_id(consumer_id)
+        ConsumerOrders = []
+        for consumer_order in consumer_orders:
+            ConsumerOrder = {}
+            ConsumerOrder["order_id"] = consumer_order.order_id
+            ConsumerOrder["consumer_id"] = consumer_order.consumer_id
+            ConsumerOrder["product_id"] = consumer_order.product_id
+            ConsumerOrder["quantity"] = consumer_order.quantity
+            ConsumerOrder["order_date"] = consumer_order.order_date.isoformat()
+
+            # Fetch the product information based on the product_id
+            product = ProductDAO.get_product_by_id(consumer_order.product_id)
+            if product:
+                # Calculate the total price using the product price and quantity
+                total_price = consumer_order.quantity * product.price
+                ConsumerOrder["total_price"] = total_price
+            else:
+                ConsumerOrder["total_price"] = None
+
+            ConsumerOrders.append(ConsumerOrder)
+        return ConsumerOrders
+
 
     def get_consumers_by_order_id(order_id: int) -> List[Consumer]:
         consumers = ConsumerOrderDAO.get_consumers_by_order_id(order_id)
@@ -428,7 +438,8 @@ class Query:
             Consumer["email"] = consumer.email
             Consumers.append(Consumer)
         return Consumers
-    
+
+
     def get_all_consumer_orders() -> List[ConsumerOrder]:
         consumer_orders = ConsumerOrderDAO.get_all_consumer_orders()
         ConsumerOrders = []
@@ -439,10 +450,19 @@ class Query:
             ConsumerOrder["product_id"] = consumer_order.product_id
             ConsumerOrder["quantity"] = consumer_order.quantity
             ConsumerOrder["order_date"] = consumer_order.order_date.isoformat()
-            ConsumerOrder["total_price"] = consumer_order.quantity * consumer_order.product.price
+
+            # Fetch the product information based on the product_id
+            product = ProductDAO.get_product_by_id(consumer_order.product_id)
+            if product:
+                # Calculate the total price using the product price and quantity
+                total_price = consumer_order.quantity * product.price
+                ConsumerOrder["total_price"] = total_price
+            else:
+                ConsumerOrder["total_price"] = None
+
             ConsumerOrders.append(ConsumerOrder)
         return ConsumerOrders
-# ===========================================================================consumerTransaction=====================================================================================================================================
+# ======================================consumerTransaction=====================================================================================================================================
     def get_consumer_transaction_by_id(self, transaction_id: int) -> ConsumerTransaction:
         ConsumerTransactionDao = ConsumerTransactionDAO.get_consumer_by_transaction_id(transaction_id)
         ConsumerTransaction = {}

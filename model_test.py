@@ -3,7 +3,7 @@ from sqlalchemy.orm import relationship, backref
 from database2 import Base
 
 class Product(Base):
-    __tablename__= "Products"
+    _tablename_= "Products"
 
     Pid = Column(Integer, primary_key=True)
     Pname = Column(String)
@@ -17,7 +17,7 @@ class Product(Base):
         return f"<Product(Pid={self.Pid}, Pname='{self.Pname}', Description='{self.Description}',Price='{self.Price}')>"
     
 class Supplier(Base):
-    __tablename__= "Suppliers"
+    _tablename_= "Suppliers"
 
     Sid = Column(Integer, primary_key=True)
     Sname = Column(String)
@@ -28,7 +28,7 @@ class Supplier(Base):
         return f"<Supplier(Sid={self.Sid}, Sname='{self.Sname}', Scontact='{self.Scontact}',Sadd='{self.Sadd}')>"
 
 class Customer(Base):
-    __tablename__= "Customers"
+    _tablename_= "Customers"
 
     Cid = Column(Integer, primary_key=True)
     Cname = Column(String)
@@ -40,7 +40,7 @@ class Customer(Base):
 
 
 class Stock(Base):
-    __tablename__= "Stocks"
+    _tablename_= "Stocks"
 
     Sid = Column(Integer, primary_key=True)
     Pid = Column(Integer, ForeignKey('Products.Pid',ondelete='CASCADE',onupdate='CASCADE'))
@@ -52,7 +52,7 @@ class Stock(Base):
         return f"<Stock(Stid={self.Stid}, Pid='{self.Pid}', Qnt='{self.Qnt}')>"
     
 class Sorder(Base):
-    __tablename__= "Sorders" 
+    _tablename_= "Sorders" 
 
     Oid = Column(Integer, primary_key=True)
     Pid = Column(Integer, ForeignKey('Products.Pid',ondelete='CASCADE',onupdate='CASCADE'))
@@ -64,7 +64,7 @@ class Sorder(Base):
         return f"<Sorder(Oid={self.Oid}, Pid='{self.Pid}', Sid='{self.Sid}',Pqnt='{self.Pqnt}')>"
 
 class Corder(Base):
-    __tablename__= "Corders" 
+    _tablename_= "Corders" 
 
     Oid = Column(Integer, primary_key=True)
     Pid = Column(Integer, ForeignKey('Products.Pid',ondelete='CASCADE',onupdate='CASCADE'))
@@ -77,7 +77,7 @@ class Corder(Base):
 
 
 class Stransaction(Base):
-    __tablename__= "Stransactions"
+    _tablename_= "Stransactions"
 
     Tid = Column(Integer, primary_key=True)
     Oid = Column(Integer, ForeignKey('Sorders.Oid',ondelete='CASCADE',onupdate='CASCADE'))
@@ -90,7 +90,7 @@ class Stransaction(Base):
     
 
 class Ctransaction(Base):
-    __tablename__= "Ctransactions"
+    _tablename_= "Ctransactions"
 
     Tid = Column(Integer, primary_key=True)
     Oid = Column(Integer, ForeignKey('Corders.Oid',ondelete='CASCADE',onupdate='CASCADE'))
