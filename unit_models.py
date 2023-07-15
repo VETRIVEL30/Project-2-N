@@ -186,5 +186,5 @@ class TestModels(unittest.TestCase):
         self.assertEqual(retrieved_ctransaction.TDate, ctransaction.TDate)
         self.assertEqual(retrieved_ctransaction.Tprice, 50)
         
-if _name_ == '_main_':
+if __name__ == '__main__':
     unittest.main()
