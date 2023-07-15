@@ -468,6 +468,10 @@ class ConsumerTransactionDAO:
         if transaction:
             return transaction.order
         return None
+    
+    @staticmethod
+    def get_all_consumer_transactions():
+        return ConsumerTransaction.query.all()
 
     @staticmethod
     def get_transaction_by_order_id(order_id):

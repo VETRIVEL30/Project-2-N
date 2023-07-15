@@ -407,7 +407,7 @@ class Query:
         return Consumers
     
     def get_all_consumer_orders() -> List[ConsumerOrder]:
-        consumer_orders = ConsumerOrder.query.all()
+        consumer_orders = ConsumerOrderDAO.get_all_consumer_orders()
         ConsumerOrders = []
         for consumer_order in consumer_orders:
             ConsumerOrder = {}
