@@ -34,6 +34,11 @@ jobs:
           TAG=$(date +%Y%m%d)-$(date +%H%M%S)
           echo "tag=$TAG" >> $GITHUB_OUTPUT
           echo "Tag Version: $TAG" >> $GITHUB_STEP_SUMMARY
+      - name: 'Running Test cases'
+        id: run_unit_tests
+        run: |
+          python model_test.py
+          python unit_models.py
     
       - name: 'Create Zip File'
         id: 'create_package'
