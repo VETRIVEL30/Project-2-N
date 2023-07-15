@@ -173,29 +173,44 @@ class Query:
             supplier_order["stock_id"] = supplier_order_dao.stock_id
             supplier_order["quantity"] = supplier_order_dao.quantity
             supplier_order["order_date"] = supplier_order_dao.order_date.isoformat()
-            supplier_order["total_price"] = supplier_order_dao.quantity * supplier_order_dao.product_price
+
+            # Fetch the product information based on the product_id
+            product = ProductDAO.get_product_by_id(supplier_order_dao.product_id)
+            if product:
+                # Calculate the total price using the product price and quantity
+                total_price = supplier_order_dao.quantity * product.price
+                supplier_order["total_price"] = total_price
+            else:
+                supplier_order["total_price"] = None
 
         return supplier_order
 
 
-    def get_all_supplier_orders(self) -> List[SupplierOrder]:
-        supplier_orders = SupplierOrderDAO.get_all_supplier_orders()
-        supplier_order_list = []
+    def get_all_supplier_orders() -> List[SupplierOrder]:
+        supplier_orders = SupplierOrder.query.all()
+        SupplierOrderList = []
 
-        for supplier_order_dao in supplier_orders:
-            supplier_order = {}
+        for supplier_order in supplier_orders:
+            supplier_order_data = {}
+            supplier_order_data["order_id"] = supplier_order.order_id
+            supplier_order_data["supplier_id"] = supplier_order.supplier_id
+            supplier_order_data["product_id"] = supplier_order.product_id
+            supplier_order_data["stock_id"] = supplier_order.stock_id
+            supplier_order_data["quantity"] = supplier_order.quantity
+            supplier_order_data["order_date"] = supplier_order.order_date.isoformat()
 
-            supplier_order["order_id"] = supplier_order_dao.order_id
-            supplier_order["supplier_id"] = supplier_order_dao.supplier_id
-            supplier_order["product_id"] = supplier_order_dao.product_id
-            supplier_order["stock_id"] = supplier_order_dao.stock_id
-            supplier_order["quantity"] = supplier_order_dao.quantity
-            supplier_order["order_date"] = supplier_order_dao.order_date.isoformat()
-            supplier_order["total_price"] = supplier_order_dao.quantity * supplier_order_dao.product_price
+            # Fetch the product information based on the product_id
+            product = ProductDAO.get_product_by_id(supplier_order.product_id)
+            if product:
+                # Calculate the total price using the product price and quantity
+                total_price = supplier_order.quantity * product.price
+                supplier_order_data["total_price"] = total_price
+            else:
+                supplier_order_data["total_price"] = None
 
-            supplier_order_list.append(supplier_order)
+            SupplierOrderList.append(supplier_order_data)
 
-        return supplier_order_list
+        return SupplierOrderList
 
 
     def get_orders_by_supplier_id(self, supplier_id: int) -> List[SupplierOrder]:
@@ -211,7 +226,15 @@ class Query:
             supplier_order["stock_id"] = supplier_order_dao.stock_id
             supplier_order["quantity"] = supplier_order_dao.quantity
             supplier_order["order_date"] = supplier_order_dao.order_date.isoformat()
-            supplier_order["total_price"] = supplier_order_dao.quantity * supplier_order_dao.product_price
+
+            # Fetch the product information based on the product_id
+            product = ProductDAO.get_product_by_id(supplier_order_dao.product_id)
+            if product:
+                # Calculate the total price using the product price and quantity
+                total_price = supplier_order_dao.quantity * product.price
+                supplier_order["total_price"] = total_price
+            else:
+                supplier_order["total_price"] = None
 
             supplier_order_list.append(supplier_order)
 
