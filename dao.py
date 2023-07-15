@@ -146,6 +146,8 @@ class StockDAO:
     
     
 # ----------------------------------------------------------------------------------------------------------------------------------------
+from datetime import datetime
+
 class SupplierOrderDAO:
     @staticmethod
     def create_supplier_order(supplier_id, product_id, stock_id, quantity, order_date):
@@ -160,12 +162,12 @@ class SupplierOrderDAO:
                 stock=stock,
                 quantity=quantity,
                 total_price=total_price,  # Assign the calculated total price
-                order_date=order_date
+                order_date=datetime.strptime(order_date, "%Y-%m-%d").date()  # Parse the order date
             )
             db.add(supplier_order)
             db.commit()
 
-             # Update the stock quantity
+            # Update the stock quantity
             stock.quantity += quantity
             db.commit()
             return supplier_order
@@ -174,11 +176,12 @@ class SupplierOrderDAO:
     def get_orders_by_supplier_id(supplier_id):
         # Retrieve orders by supplier ID
         return SupplierOrder.query.filter_by(supplier_id=supplier_id).all()
+
     @staticmethod
     def get_suppliers_by_order_id(order_id):
         # Retrieve suppliers by order ID
         return Supplier.query.join(SupplierOrder).filter(SupplierOrder.order_id == order_id).all()
-    
+
     @staticmethod
     def get_supplier_order_by_id(order_id):
         return SupplierOrder.query.get(order_id)
@@ -195,7 +198,7 @@ class SupplierOrderDAO:
                 previous_quantity = order.quantity  # Store the previous quantity
                 order.quantity = quantity
             if order_date is not None:
-                order.order_date = order_date
+                order.order_date = datetime.strptime(order_date, "%Y-%m-%d").date()  # Parse the order date
             order.calculate_total_price()  # Recalculate the total price
             db.commit()
 
@@ -224,6 +227,7 @@ class SupplierOrderDAO:
             db.commit()
 
         return order
+
 
 # --------------------------------------------------------------------------------------------------------------------------------------
 class ConsumerDAO:
@@ -292,13 +296,14 @@ class ConsumerOrderDAO:
         consumer = ConsumerDAO.get_consumer_by_id(consumer_id)
         product = ProductDAO.get_product_by_id(product_id)
         if consumer and product:
+            total_price = quantity * product.price  # Calculate the total price
             consumer_order = ConsumerOrder(
                 consumer=consumer,
                 product=product,
                 quantity=quantity,
+                total_price=total_price,  # Assign the calculated total price
                 order_date=order_date
             )
-            consumer_order.calculate_total_price()  # Calculate the total price
             db.add(consumer_order)
             db.commit()
 
@@ -317,6 +322,7 @@ class ConsumerOrderDAO:
                         quantity=remaining_quantity,
                         order_date=order_date
                     )
+
             # Update the stock quantity
             stock = StockDAO.get_stock_by_product_id(product_id)
             if stock:
@@ -327,6 +333,7 @@ class ConsumerOrderDAO:
                     raise ValueError("Insufficient stock quantity")
 
             return consumer_order
+
 
     @staticmethod
     def get_consumer_order_by_id(order_id):

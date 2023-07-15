@@ -158,49 +158,64 @@ class Query:
             Stock["location"] = stock.location
             Stock["threshold"] = stock.threshold
             Stocks.append(Stock)
+        return Stocks
     
 #------------------------------supplier order--------------------------------------------------------------------------------------------------------------------
-    
+        
     def get_supplier_order_by_id(self, order_id: int) -> SupplierOrder:
-        SupplierOrderDao = SupplierOrderDAO.get_supplier_order_by_id(order_id)
-        SupplierOrder = {}
-        SupplierOrder["order_id"] = SupplierOrderDao.order_id
-        SupplierOrder["supplier_id"] = SupplierOrderDao.supplier_id
-        SupplierOrder["product_id"] = SupplierOrderDao.product_id
-        SupplierOrder["stock_id"] = SupplierOrderDao.stock_id
-        SupplierOrder["quantity"] = SupplierOrderDao.quantity
-        SupplierOrder["order_date"] = SupplierOrderDao.order_date.isoformat()
-        return SupplierOrder
+        supplier_order_dao = SupplierOrderDAO.get_supplier_order_by_id(order_id)
+        supplier_order = {}
+
+        if supplier_order_dao:
+            supplier_order["order_id"] = supplier_order_dao.order_id
+            supplier_order["supplier_id"] = supplier_order_dao.supplier_id
+            supplier_order["product_id"] = supplier_order_dao.product_id
+            supplier_order["stock_id"] = supplier_order_dao.stock_id
+            supplier_order["quantity"] = supplier_order_dao.quantity
+            supplier_order["order_date"] = supplier_order_dao.order_date.isoformat()
+            supplier_order["total_price"] = supplier_order_dao.quantity * supplier_order_dao.product_price
+
+        return supplier_order
 
 
     def get_all_supplier_orders(self) -> List[SupplierOrder]:
         supplier_orders = SupplierOrderDAO.get_all_supplier_orders()
-        SupplierOrders = []
-        for supplier_order in supplier_orders:
-            SupplierOrder = {}
-            SupplierOrder["order_id"] = supplier_order.order_id
-            SupplierOrder["supplier_id"] = supplier_order.supplier_id
-            SupplierOrder["product_id"] = supplier_order.product_id
-            SupplierOrder["stock_id"] = supplier_order.stock_id
-            SupplierOrder["quantity"] = supplier_order.quantity
-            SupplierOrder["order_date"] = supplier_order.order_date.isoformat()
-            SupplierOrders.append(SupplierOrder)
-        return SupplierOrders
+        supplier_order_list = []
+
+        for supplier_order_dao in supplier_orders:
+            supplier_order = {}
+
+            supplier_order["order_id"] = supplier_order_dao.order_id
+            supplier_order["supplier_id"] = supplier_order_dao.supplier_id
+            supplier_order["product_id"] = supplier_order_dao.product_id
+            supplier_order["stock_id"] = supplier_order_dao.stock_id
+            supplier_order["quantity"] = supplier_order_dao.quantity
+            supplier_order["order_date"] = supplier_order_dao.order_date.isoformat()
+            supplier_order["total_price"] = supplier_order_dao.quantity * supplier_order_dao.product_price
+
+            supplier_order_list.append(supplier_order)
+
+        return supplier_order_list
 
 
     def get_orders_by_supplier_id(self, supplier_id: int) -> List[SupplierOrder]:
         supplier_orders = SupplierOrderDAO.get_orders_by_supplier_id(supplier_id)
-        SupplierOrders = []
-        for supplier_order in supplier_orders:
-            SupplierOrder = {}
-            SupplierOrder["order_id"] = supplier_order.order_id
-            SupplierOrder["supplier_id"] = supplier_order.supplier_id
-            SupplierOrder["product_id"] = supplier_order.product_id
-            SupplierOrder["stock_id"] = supplier_order.stock_id
-            SupplierOrder["quantity"] = supplier_order.quantity
-            SupplierOrder["order_date.isoformat()"] = supplier_order.order_date
-            SupplierOrders.append(SupplierOrder)
-        return SupplierOrders
+        supplier_order_list = []
+
+        for supplier_order_dao in supplier_orders:
+            supplier_order = {}
+
+            supplier_order["order_id"] = supplier_order_dao.order_id
+            supplier_order["supplier_id"] = supplier_order_dao.supplier_id
+            supplier_order["product_id"] = supplier_order_dao.product_id
+            supplier_order["stock_id"] = supplier_order_dao.stock_id
+            supplier_order["quantity"] = supplier_order_dao.quantity
+            supplier_order["order_date"] = supplier_order_dao.order_date.isoformat()
+            supplier_order["total_price"] = supplier_order_dao.quantity * supplier_order_dao.product_price
+
+            supplier_order_list.append(supplier_order)
+
+        return supplier_order_list
 
 
     def get_suppliers_by_order_id(self, order_id: int) -> List[Supplier]:
@@ -265,7 +280,6 @@ class Query:
             Consumers.append(Consumer)
         return Consumers
 # -----------------------------supplierTransaction------------------------------------------------------------------
-    
     def get_supplier_transaction_by_id(self, transaction_id: int) -> SupplierTransaction:
         SupplierTransactionDao = SupplierTransactionDAO.get_supplier_transaction_by_id(transaction_id)
         SupplierTransaction = {}
@@ -273,6 +287,11 @@ class Query:
         SupplierTransaction["supplier_id"] = SupplierTransactionDao.supplier_id
         SupplierTransaction["order_id"] = SupplierTransactionDao.order_id
         SupplierTransaction["transaction_date"] = SupplierTransactionDao.transaction_date.isoformat()
+
+        # Retrieve the associated order
+        order = SupplierOrderDAO.get_supplier_order_by_id(SupplierTransactionDao.order_id)
+        SupplierTransaction["amount"] = order.quantity * order.product_price if order else None
+
         return SupplierTransaction
 
 
@@ -285,6 +304,11 @@ class Query:
             SupplierTransaction["supplier_id"] = supplier_transaction.supplier_id
             SupplierTransaction["order_id"] = supplier_transaction.order_id
             SupplierTransaction["transaction_date"] = supplier_transaction.transaction_date.isoformat()
+
+            # Retrieve the associated order
+            order = SupplierOrderDAO.get_supplier_order_by_id(supplier_transaction.order_id)
+            SupplierTransaction["amount"] = order.quantity * order.product_price if order else None
+
             SupplierTransactions.append(SupplierTransaction)
         return SupplierTransactions
 
@@ -298,6 +322,11 @@ class Query:
             SupplierTransaction["supplier_id"] = supplier_transaction.supplier_id
             SupplierTransaction["order_id"] = supplier_transaction.order_id
             SupplierTransaction["transaction_date"] = supplier_transaction.transaction_date.isoformat()
+
+            # Retrieve the associated order
+            order = SupplierOrderDAO.get_supplier_order_by_id(supplier_transaction.order_id)
+            SupplierTransaction["amount"] = order.quantity * order.product_price if order else None
+
             SupplierTransactions.append(SupplierTransaction)
         return SupplierTransactions
 
@@ -327,6 +356,7 @@ class Query:
             Order["stock_id"] = orderDao.stock_id
             Order["quantity"] = orderDao.quantity
             Order["order_date"] = orderDao.order_date.isoformat()
+            Order["amount"] = orderDao.quantity * orderDao.product_price
             return Order
 
 
@@ -340,27 +370,30 @@ class Query:
             Transaction["supplier_id"] = transactionDao.supplier_id
             Transaction["order_id"] = transactionDao.order_id
             Transaction["transaction_date"] = transactionDao.transaction_date.isoformat()
+
+            # Retrieve the associated order
+            order = SupplierOrderDAO.get_supplier_order_by_id(transactionDao.order_id)
+            Transaction["amount"] = order.quantity * order.product_price if order else None
+
             return Transaction
 
 # ---------------------------------------consumerOrder-------------------------------------------------------------------------------
     
-    def get_orders_by_consumer_id(self, consumer_id: int) -> List[ConsumerOrder]:
-        # Retrieve orders by consumer ID
-        consumer_orders = ConsumerOrderDAO.get_orders_by_consumer_id(consumer_id)
-        ConsumerOrders = []
-        for consumer_order in consumer_orders:
-            ConsumerOrder = {}
-            ConsumerOrder["order_id"] = consumer_order.order_id
-            ConsumerOrder["consumer_id"] = consumer_order.consumer_id
-            ConsumerOrder["product_id"] = consumer_order.product_id
-            ConsumerOrder["quantity"] = consumer_order.quantity
-            ConsumerOrder["order_date"] = consumer_order.order_date.isoformat()
-            ConsumerOrders.append(ConsumerOrder)
-        return ConsumerOrders
+    def get_orders_by_consumer_id(consumer_id: int) -> List[ConsumerOrder]:
+            consumer_orders = ConsumerOrderDAO.get_orders_by_consumer_id(consumer_id)
+            ConsumerOrders = []
+            for consumer_order in consumer_orders:
+                ConsumerOrder = {}
+                ConsumerOrder["order_id"] = consumer_order.order_id
+                ConsumerOrder["consumer_id"] = consumer_order.consumer_id
+                ConsumerOrder["product_id"] = consumer_order.product_id
+                ConsumerOrder["quantity"] = consumer_order.quantity
+                ConsumerOrder["order_date"] = consumer_order.order_date.isoformat()
+                ConsumerOrder["total_price"] = consumer_order.quantity * consumer_order.product.price
+                ConsumerOrders.append(ConsumerOrder)
+            return ConsumerOrders
 
-
-    def get_consumers_by_order_id(self, order_id: int) -> List[Consumer]:
-        # Retrieve consumers by order ID
+    def get_consumers_by_order_id(order_id: int) -> List[Consumer]:
         consumers = ConsumerOrderDAO.get_consumers_by_order_id(order_id)
         Consumers = []
         for consumer in consumers:
@@ -372,8 +405,8 @@ class Query:
             Consumer["email"] = consumer.email
             Consumers.append(Consumer)
         return Consumers
+    
     def get_all_consumer_orders() -> List[ConsumerOrder]:
-    # Retrieve all consumer orders
         consumer_orders = ConsumerOrder.query.all()
         ConsumerOrders = []
         for consumer_order in consumer_orders:
@@ -383,6 +416,7 @@ class Query:
             ConsumerOrder["product_id"] = consumer_order.product_id
             ConsumerOrder["quantity"] = consumer_order.quantity
             ConsumerOrder["order_date"] = consumer_order.order_date.isoformat()
+            ConsumerOrder["total_price"] = consumer_order.quantity * consumer_order.product.price
             ConsumerOrders.append(ConsumerOrder)
         return ConsumerOrders
 # ===========================================================================consumerTransaction=====================================================================================================================================
@@ -393,6 +427,11 @@ class Query:
         ConsumerTransaction["consumer_id"] = ConsumerTransactionDao.consumer_id
         ConsumerTransaction["order_id"] = ConsumerTransactionDao.order_id
         ConsumerTransaction["transaction_date"] = ConsumerTransactionDao.transaction_date.isoformat()
+
+        # Retrieve the associated order
+        order = ConsumerOrderDAO.get_consumer_order_by_id(ConsumerTransactionDao.order_id)
+        ConsumerTransaction["amount"] = order.quantity * order.product.price if order else None
+
         return ConsumerTransaction
 
 
@@ -405,12 +444,16 @@ class Query:
             ConsumerTransaction["consumer_id"] = consumer_transaction.consumer_id
             ConsumerTransaction["order_id"] = consumer_transaction.order_id
             ConsumerTransaction["transaction_date"] = consumer_transaction.transaction_date.isoformat()
+
+            # Retrieve the associated order
+            order = ConsumerOrderDAO.get_consumer_order_by_id(consumer_transaction.order_id)
+            ConsumerTransaction["amount"] = order.quantity * order.product.price if order else None
+
             ConsumerTransactions.append(ConsumerTransaction)
         return ConsumerTransactions
 
 
     def get_transactions_by_consumer_id(self, consumer_id: int) -> List[ConsumerTransaction]:
-        # Retrieve transactions by consumer ID
         transactions = ConsumerTransactionDAO.get_transactions_by_consumer_id(consumer_id)
         Transactions = []
         for transaction in transactions:
@@ -419,12 +462,16 @@ class Query:
             Transaction["consumer_id"] = transaction.consumer_id
             Transaction["order_id"] = transaction.order_id
             Transaction["transaction_date"] = transaction.transaction_date.isoformat()
+
+            # Retrieve the associated order
+            order = ConsumerOrderDAO.get_consumer_order_by_id(transaction.order_id)
+            Transaction["amount"] = order.quantity * order.product.price if order else None
+
             Transactions.append(Transaction)
         return Transactions
 
 
     def get_consumer_by_transaction_id(self, transaction_id: int) -> Optional[Consumer]:
-        # Retrieve consumer by transaction ID
         consumerDao = ConsumerTransactionDAO.get_consumer_by_transaction_id(transaction_id)
         if not consumerDao:
             return None
@@ -439,7 +486,6 @@ class Query:
 
 
     def get_Consumerorder_by_transaction_id(self, transaction_id: int) -> Optional[ConsumerOrder]:
-        # Retrieve order by transaction ID
         orderDao = ConsumerTransactionDAO.get_order_by_transaction_id(transaction_id)
         if not orderDao:
             return None
@@ -450,11 +496,11 @@ class Query:
             Order["product_id"] = orderDao.product_id
             Order["quantity"] = orderDao.quantity
             Order["order_date"] = orderDao.order_date.isoformat()
+            Order["amount"] = orderDao.quantity * orderDao.product.price
             return Order
 
 
     def get_Consumertransaction_by_order_id(self, order_id: int) -> Optional[ConsumerTransaction]:
-        # Retrieve transaction by order ID
         transactionDao = ConsumerTransactionDAO.get_transaction_by_order_id(order_id)
         if not transactionDao:
             return None
@@ -464,7 +510,13 @@ class Query:
             Transaction["consumer_id"] = transactionDao.consumer_id
             Transaction["order_id"] = transactionDao.order_id
             Transaction["transaction_date"] = transactionDao.transaction_date.isoformat()
+
+            # Retrieve the associated order
+            order = ConsumerOrderDAO.get_consumer_order_by_id(transactionDao.order_id)
+            Transaction["amount"] = order.quantity * order.product.price if order else None
+
             return Transaction
+
 
 class Mutation:
     
@@ -541,25 +593,42 @@ class Mutation:
         stock_id = StockDAO.delete_stock(stock_id)
         return {"stock_id": stock_id}
     
-    
-    def create_supplier_order(self, supplier_id: int, product_id: int, stock_id: int, quantity: int, order_date: str) -> SupplierOrder:
-        SupplierOrderDao = SupplierOrderDAO.create_supplier_order(supplier_id, product_id, stock_id, quantity, order_date)
-        SupplierOrder = {}
-        SupplierOrder["supplier_id"] = SupplierOrderDao.supplier_id
-        SupplierOrder["product_id"] = SupplierOrderDao.product_id
-        SupplierOrder["stock_id"] = SupplierOrderDao.stock_id
-        SupplierOrder["quantity"] = SupplierOrderDao.quantity
-        SupplierOrder["order_date"] = SupplierOrderDao.order_date.isoformat()
-        return SupplierOrder
+    def create_supplier_order(supplier_id: int, product_id: int, stock_id: int, quantity: int, order_date: str) -> SupplierOrder:
+        supplier_order_dao = SupplierOrderDAO.create_supplier_order(supplier_id, product_id, stock_id, quantity, order_date)
+        product = ProductDAO.get_product_by_id(product_id)
+        
+        if product:
+            total_price = quantity * product.price
+        else:
+            total_price = 0.0
+
+        supplier_order = {}
+        supplier_order["supplier_id"] = supplier_order_dao.supplier_id
+        supplier_order["product_id"] = supplier_order_dao.product_id
+        supplier_order["stock_id"] = supplier_order_dao.stock_id
+        supplier_order["quantity"] = supplier_order_dao.quantity
+        supplier_order["order_date"] = supplier_order_dao.order_date.isoformat()
+        supplier_order["total_price"] = total_price
+
+        return supplier_order
 
 
     def update_supplier_order(self, order_id: int, quantity: int = None, order_date: str = None) -> SupplierOrder:
-        SupplierOrderDao = SupplierOrderDAO.update_supplier_order(order_id, quantity, order_date)
-        SupplierOrder = {}
-        SupplierOrder["order_id"] = SupplierOrderDao.order_id
-        SupplierOrder["quantity"] = SupplierOrderDao.quantity
-        SupplierOrder["order_date"] = SupplierOrderDao.order_date
-        return SupplierOrder
+        supplier_order_dao = SupplierOrderDAO.update_supplier_order(order_id, quantity, order_date)
+        supplier_order = {}
+
+        if supplier_order_dao:
+            supplier_order["order_id"] = supplier_order_dao.order_id
+            supplier_order["quantity"] = supplier_order_dao.quantity
+            supplier_order["order_date"] = supplier_order_dao.order_date.isoformat()
+
+            product = ProductDAO.get_product_by_id(supplier_order_dao.product_id)
+            if product:
+                supplier_order["total_price"] = supplier_order_dao.quantity * product.price
+            else:
+                supplier_order["total_price"] = 0.0
+
+        return supplier_order
 
 
     def delete_supplier_order(self, order_id: int) -> SupplierOrder:
@@ -594,22 +663,41 @@ class Mutation:
 
     
     def create_consumer_order(self, consumer_id: int, product_id: int, quantity: int, order_date: str) -> ConsumerOrder:
-        ConsumerOrderDao = ConsumerOrderDAO.create_consumer_order(consumer_id, product_id, quantity, order_date)
-        ConsumerOrder = {}
-        ConsumerOrder["consumer_id"] = ConsumerOrderDao.consumer_id
-        ConsumerOrder["product_id"] = ConsumerOrderDao.product_id
-        ConsumerOrder["quantity"] = ConsumerOrderDao.quantity
-        ConsumerOrder["order_date"] = ConsumerOrderDao.order_date
-        return ConsumerOrder
+        consumer_order_dao = ConsumerOrderDAO.create_consumer_order(consumer_id, product_id, quantity, order_date)
+        consumer_order = {}
+
+        if consumer_order_dao:
+            consumer_order["consumer_id"] = consumer_order_dao.consumer_id
+            consumer_order["product_id"] = consumer_order_dao.product_id
+            consumer_order["quantity"] = consumer_order_dao.quantity
+            consumer_order["order_date"] = consumer_order_dao.order_date.isoformat()
+
+            product = ProductDAO.get_product_by_id(consumer_order_dao.product_id)
+            if product:
+                consumer_order["total_price"] = consumer_order_dao.quantity * product.price
+            else:
+                consumer_order["total_price"] = 0.0
+
+        return consumer_order
 
 
     def update_consumer_order(self, order_id: int, quantity: int = None, order_date: str = None) -> ConsumerOrder:
-        ConsumerOrderDao = ConsumerOrderDAO.update_consumer_order(order_id, quantity, order_date)
-        ConsumerOrder = {}
-        ConsumerOrder["order_id"] = ConsumerOrderDao.order_id
-        ConsumerOrder["quantity"] = ConsumerOrderDao.quantity
-        ConsumerOrder["order_date"] = ConsumerOrderDao.order_date
-        return ConsumerOrder
+        consumer_order_dao = ConsumerOrderDAO.update_consumer_order(order_id, quantity, order_date)
+        consumer_order = {}
+
+        if consumer_order_dao:
+            consumer_order["order_id"] = consumer_order_dao.order_id
+            consumer_order["quantity"] = consumer_order_dao.quantity
+            consumer_order["order_date"] = consumer_order_dao.order_date.isoformat()
+
+            product = ProductDAO.get_product_by_id(consumer_order_dao.product_id)
+            if product:
+                consumer_order["total_price"] = consumer_order_dao.quantity * product.price
+            else:
+                consumer_order["total_price"] = 0.0
+
+        return consumer_order
+
 
 
     def delete_consumer_order(self, order_id: int) -> ConsumerOrder:
