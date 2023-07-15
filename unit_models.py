@@ -7,7 +7,7 @@ from model_test import Product, Supplier, Customer, Stock, Sorder, Corder, Stran
 from database2 import Base
 
 # Create a PostgreSQL database for testing
-engine = create_engine('postgresql://postgres:Sachin%402106@localhost/test?5432')
+engine = create_engine("postgresql://postgres:Password0#@database1.cuetvdodk2bh.us-east-1.rds.amazonaws.com:5432/test")
 Session = sessionmaker(bind=engine)
 
 # Create the tables in the database
@@ -186,5 +186,5 @@ class TestModels(unittest.TestCase):
         self.assertEqual(retrieved_ctransaction.TDate, ctransaction.TDate)
         self.assertEqual(retrieved_ctransaction.Tprice, 50)
         
-if __name__ == '__main__':
+if _name_ == '_main_':
     unittest.main()
